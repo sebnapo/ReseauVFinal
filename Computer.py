@@ -59,7 +59,7 @@ class Computer(object):
             self.__appThreadLock.release()
 
             for (source,applicationPort,message) in currentList:
-                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: Application received message %d: %s" % (self.__ownIdentifier, totalNumber, message))
+                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: L'application à reçus le message %d: %s" % (self.__ownIdentifier, totalNumber, message))
 
                 totalNumber=totalNumber+1
                 thisCorrect=True
@@ -80,7 +80,7 @@ class Computer(object):
                         messageNumberInt=-2
                     if lastReceived==-1000:
                         lastReceived=messageNumberInt-1
-    
+
                     if messageNumberInt != lastReceived+1:
                         outOfOrder=outOfOrder+1
                         thisCorrect=False
@@ -92,15 +92,15 @@ class Computer(object):
                     correct=correct+1
                 print(totalNumber);
             if self.__loopCounter % self.__statusUpdateSeconds == 0:
-                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: === Application Status of Computer %s after %.1f seconds:" % (self.__ownIdentifier, self.__ownIdentifier,(time.clock()-self.__appStartedTime)))
-                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: === Received %d messages with %d correct (%d out of order, %d wrong destination, %d wrong application)\n" % (self.__ownIdentifier, totalNumber, correct, outOfOrder, wrongDestination, wrongApplicationPort))
+                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: === Status de l'ordinateur %s après %.1f secondes:" % (self.__ownIdentifier, self.__ownIdentifier,(time.clock()-self.__appStartedTime)))
+                self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcApplication,self.__debugOut.INFO,"%s: === Reception de %d messages avec %d correcte (%d hors service, %d mauvaise destination, %d mauvaise application)\n" % (self.__ownIdentifier, totalNumber, correct, outOfOrder, wrongDestination, wrongApplicationPort))
             time.sleep(1)
 
     def appMessageSend(self, destinationIdentifier="B", numberOfMessages=5):
-        self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcComputer,self.__debugOut.INFO,"%s: Sending %d Messages from %s to %s" % (self.__ownIdentifier, numberOfMessages,self.__ownIdentifier,str(destinationIdentifier)))
+        self.__debugOut.debugOutSource(self.__ownIdentifier, self.__debugOut.srcComputer,self.__debugOut.INFO,"%s: Envoie %d Messages de %s a %s" % (self.__ownIdentifier, numberOfMessages,self.__ownIdentifier,str(destinationIdentifier)))
         for i in range(numberOfMessages):
             for d in destinationIdentifier:
-                thisMessage="Message n°%d from %s to %s,%s,%s" % (i, self.__ownIdentifier, d,i,d)
+                thisMessage="Message n°%d de %s a %s,%s,%s" % (i, self.__ownIdentifier, d,i,d)
                 #thisMessage="%s Sending Message n°%d to %s,%d,%s" % (self.__ownIdentifier, i,d,i,d)
                 self.__networkstack.applicationSend(d,10,thisMessage)
 
@@ -120,4 +120,4 @@ class Computer(object):
 
     def enableGlobalDebug(self):
         self.__networkstack.enableGlobalDebug()
-        
+
