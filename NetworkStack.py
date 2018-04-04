@@ -154,7 +154,7 @@ class NetworkStack(object):
         #SN TB Test pour savoir si on est le destinaire
         elif destinataire == self.__ownIdentifier:
             print("Nice ca");
-            #AL YC Si oui, on envoie à la couche 4 incoming
+            #SN TB Si oui, on envoie à la couche 4 incoming
             self.__debugOut.debugOutLayer(self.__ownIdentifier,3,self.__debugOut.INFO,"%s: Layer3_in: tirage (%s) -> layer4_in\n" % (self.__ownIdentifier, pdu))
             self.layer4_incomingPDU(expediteur,pdu[2:])
         else:
@@ -251,3 +251,4 @@ class NetworkStack(object):
             self.paquetAEnvoyer += pdu
             #SN TB on envoie au noeud suivant
             self.__layerPhy.API_sendData(interface, self.paquetAEnvoyer)
+ 
